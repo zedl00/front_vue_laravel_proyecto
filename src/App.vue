@@ -35,16 +35,18 @@ export default {
             mobileMenuActive: false,
             menu : [
                 {
-                    label: 'Home',
+                    label: 'Admin',
                     items: [{
-                        label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
-                    }]
+                      label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/admin',
+                    },
+                      {label: 'Perfil', icon: 'pi pi-fw pi-id-card', to: '/admin/perfil'},]
+
                 },
 				{
-					label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
-					items: [
-						{label: 'Form Layout', icon: 'pi pi-fw pi-id-card', to: '/formlayout'},
-						{label: 'Input', icon: 'pi pi-fw pi-check-square', to: '/input'},
+            label: 'GESTION', icon: 'pi pi-fw pi-sitemap',
+            items: [
+              {label: 'Usuarios', icon: 'pi pi-fw pi-id-card', to: '/admin/usuario'},
+              {label: 'Input', icon: 'pi pi-fw pi-check-square', to: '/input'},
                         {label: "Float Label", icon: "pi pi-fw pi-bookmark", to: "/floatlabel"},
                         {label: "Invalid State", icon: "pi pi-fw pi-exclamation-circle", to: "/invalidstate"},
 						{label: 'Button', icon: 'pi pi-fw pi-mobile', to: '/button'},

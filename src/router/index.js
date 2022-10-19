@@ -8,8 +8,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/Inicio.vue')
+      //component: HomeView
     },
+      /*
     {
       path: '/about',
       name: 'about',
@@ -18,22 +20,40 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
+    */
+
     {
       path: '/admin',
       name: 'Admin',
       component: App,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: '',
           name: 'dashboard',
           component: () => import('../components/Dashboard.vue')
         },
+        {
+          path: 'perfil',
+          name: 'Perfil',
+          component: () => import('../views/admin/Perfil.vue')
+        },
+        {
+          path: 'usuario',
+          name: 'Usuario',
+          component: () => import('../views/admin/Usuario.vue')
+        },
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../pages/Login.vue')
+      component: () => import('../views/auth/Login.vue'),
+      meta: {
+        redirectIfAuth: true
+      }
     },
     {
       path: '/landing',
@@ -42,5 +62,29 @@ const router = createRouter({
     }
   ]
 })
+
+// Crear Guard
+
+router.beforeEach((to, from, next) => {
+  console.log("TO: ", to)
+
+  let token = localStorage.getItem("access_token");
+
+  if(to.meta.requireAuth){
+    //capturar el token guardado en el almacenamiento local de la PC
+
+    if (!token)
+      next({name: 'login'});
+
+      next();
+  }
+
+  if (to.meta.redirectIfAuth && token) {
+    next({name: 'Admin'})
+  }
+
+  return next();
+
+});
 
 export default router
